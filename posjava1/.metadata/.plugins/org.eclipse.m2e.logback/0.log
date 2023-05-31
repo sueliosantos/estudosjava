@@ -3882,3 +3882,5 @@ org.eclipse.core.runtime.CoreException: Launch configuration TestePessoa.testeUp
 2023-05-30 22:16:43,402 [Worker-19: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\workspace-pessoal\posjava1\projjavapos\src\test\resources
 2023-05-30 22:17:33,175 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2023-05-30 22:17:33,176 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\workspace-pessoal\posjava1\projjavapos\src\main\resources
+2023-05-30 22:17:33,179 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-05-30 22:17:33,180 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\workspace-pessoal\posjava1\projjavapos\src\test\resources
