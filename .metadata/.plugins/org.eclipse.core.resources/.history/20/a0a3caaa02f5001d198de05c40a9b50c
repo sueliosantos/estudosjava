@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Ola mundo</title>
+</h:head>
+
+<body>
+	<h:form>
+		<h:outputText value="Teste jsf"/>
+	</h:form>
+</body>
+</html>

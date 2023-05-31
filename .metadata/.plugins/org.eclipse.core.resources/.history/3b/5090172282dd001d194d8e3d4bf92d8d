@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem></p:menuitem>
+			<p:menuitem value="Usuários" action="index.jsf" />
+			<p:menuitem value="Tarefas" action="tarefa.jsf" />
+		</p:breadCrumb>
+	</h:form>
+	<div align="center">
+
+		<h:form id="formCadastro">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<br/>
+			<h:panelGrid columns="2">
+				<p:outputLabel>Id: </p:outputLabel>
+				<p:inputText readonly="true" value="#{usuarioPessoaBean.usuario.id}" />
+	
+				<p:outputLabel>Nome: </p:outputLabel>
+				<p:inputText value="#{usuarioPessoaBean.usuario.nome}"
+					required="true" requiredMessage="Informe o nome!" />
+	
+				<p:outputLabel>Email</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaBean.usuario.email}"
+					required="true" requiredMessage="Informe o email!" />
+	
+				<p:outputLabel>Login</p:outputLabel>
+				<p:inputText value="#{usuarioPessoaBean.usuario.login}" required="true" requiredMessage="Informe o login!" />
+	
+				<p:outputLabel>Senha</p:outputLabel>
+				<p:password value="#{usuarioPessoaBean.usuario.senha}" />
+			</h:panelGrid>
+			<br />
+			<br />
+			<h:panelGrid columns="4" cellpadding="2" cellspacing="2">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{usuarioPessoaBean.salvar}" />
+				<p:commandButton value="Novo" ajax="false" immediate="true"
+					action="#{usuarioPessoaBean.novo}" />
+			</h:panelGrid>
+	
+	
+			<br />
+			<br />
+		</h:form>
+	</div>
+
+	<h:form id="formListagem">
+		<p:dataTable value="#{usuarioPessoaBean.list}" var="user" paginator="true" rows="5" paginatorPosition="bottom"
+		style="width:2000px;"
+			cellpadding="10">
+
+			<p:column headerText="Id" width="20">
+				<h:outputText value="#{user.id}" />
+			</p:column>
+			<p:column headerText="Nome" width="200">
+				<h:outputText value="#{user.nome}" />
+			</p:column>
+			<p:column headerText="Login" width="100">
+				<h:outputText value="#{user.login}" />
+			</p:column>
+			<p:column headerText="Email" width="200">
+				<h:outputText value="#{user.email}" />
+			</p:column>
+
+			<p:column headerText="Editar" width="15">
+				<h:commandLink immediate="true" id="btnEditar">
+					<h:graphicImage url="resources/img/edit.png" width="25" height="25" />
+					<f:setPropertyActionListener value="#{user}"
+						target="#{usuarioPessoaBean.usuario}" />
+					<f:ajax execute="btnEditar" render=":formCadastro" />
+				</h:commandLink>
+			</p:column>
+
+			<p:column headerText="Excluir" width="15">
+				<h:commandLink action="#{usuarioPessoaBean.delete}" immediate="true"
+					id="btnRemover">
+					<h:graphicImage url="resources/img/excluir.png" width="25"
+						height="25" />
+					<f:setPropertyActionListener value="#{user}"
+						target="#{usuarioPessoaBean.usuario}" />
+					<f:ajax execute="btnRemover" render="@form :formCadastro:msg" />
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

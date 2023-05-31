@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel>Id</h:outputLabel>
+			<h:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
+			<h:outputLabel>Nome</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.nome}" />
+			<h:outputLabel>Sobrenome</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:outputLabel>Email</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.email}" />
+			<h:outputLabel>Login</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			<h:outputLabel>Senha</h:outputLabel>
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+		</h:panelGrid>
+		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
+		<h:commandButton value="Novo" action="#{pessoaBean.novo}"/>
+		
+		<h:dataTable value="#{pessoaBean.list}" var="p">
+			<h:column>
+				<h:outputText value="#{p.id}"/>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

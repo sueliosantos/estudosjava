@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:messages/>
+		<h:panelGrid columns="2">
+			<h:outputLabel>Id</h:outputLabel>
+			<h:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
+			<h:outputLabel>Nome</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe o nome"/>
+			<h:outputLabel>Sobrenome</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:outputLabel>Email</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.email}" />
+			<h:outputLabel>Login</h:outputLabel>
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			<h:outputLabel>Senha</h:outputLabel>
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+		</h:panelGrid>
+		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
+		<h:commandButton value="Novo" action="#{pessoaBean.novo}"/>
+		
+		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15" border="1">
+			<f:facet name="header">Lista de usuários</f:facet>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{p.id}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{p.nome}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{p.sobrenome}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{p.email}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink value="Excluir" action="#{pessoaBean.remover}">
+					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

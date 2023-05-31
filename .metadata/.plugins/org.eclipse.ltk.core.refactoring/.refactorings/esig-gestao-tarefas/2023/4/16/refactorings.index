@@ -1,0 +1,44 @@
+1681604520859	Move package
+1681604539012	Rename package 'model'
+1681604550204	Rename package 'br.com.esig'
+1681604569750	Copy compilation unit
+1681604741350	Rename type 'TesteSalvar'
+1681646112837	Copy compilation unit
+1681646299145	Rename type 'TesteSalvarPessoa'
+1681646714199	Copy compilation unit
+1681647298277	Copy compilation unit
+1681648117564	Copy compilation unit
+1681651411609	Rename resource 'index.xml'
+1681651697445	Rename resource 'index.xhml'
+1681652767887	Delete element
+1681666271076	Copy file
+1681666291565	Rename resource 'index2.xhtml'
+1681667244288	Rename package 'br.com.esig'
+1681667827563	Rename resource 'primefaces.xhtml'
+1681667859617	Rename resource 'tarefas.xhtml'
+1681667899815	Rename type 'Tarefas'
+1681667992431	Delete element
+1681668072024	Copy compilation unit
+1681668559655	Copy compilation unit
+1681668871494	Rename type 'TesteSalvarObject'
+1681668877719	Rename type 'TestePesquisarObject'
+1681668884399	Rename type 'TesteFindAllObject'
+1681668889928	Rename type 'TesteDeleteObject'
+1681668897724	Rename type 'TesteUpdateObject'
+1681669243455	Copy file
+1681669391748	Delete element
+1681677089549	Rename resource 'Delete.png'
+1681677195384	Delete element
+1681677208683	Delete element
+1681677326516	Delete element
+1681677431016	Delete element
+1681677985780	Delete element
+1681742923234	Rename type 'PessoaConverter'
+1681742934173	Rename type 'UsuarioConverter'
+1681754295243	Delete element
+1681773508149	Move file
+1681777516811	Delete element
+1681849179484	Rename package 'br.com.esig.enuns'
+1681849209445	Delete element
+1681850419354	Copy compilation unit
+1681851276426	Rename package 'br.com.managedBean'

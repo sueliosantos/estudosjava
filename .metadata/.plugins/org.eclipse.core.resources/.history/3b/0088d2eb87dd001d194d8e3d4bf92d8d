@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem />
+			<p:menuitem value="Usuários" action="index.jsf" />
+			<p:menuitem value="Tarefas" action="tarafa.jsf" />
+		</p:breadCrumb>
+	</h:form>
+	<div align="center">
+		<h:form id="formCadastro">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:panelGrid columns="2" style="width:60%;">
+				<h:outputLabel>Título</h:outputLabel>
+				<p:inputText value="#{tarefaBean.tarefa.titulo}" required="true"
+					requiredMessage="Informe o título!" />
+
+				<h:outputLabel>Descrição</h:outputLabel>
+				<p:inputTextarea rows="10" cols="50"
+					value="#{tarefaBean.tarefa.descricao}" required="true"
+					requiredMessage="Informe a descrição!" />
+
+				<h:outputLabel>Responsável</h:outputLabel>
+				<p:selectOneMenu filter="true"
+					value="#{tarefaBean.tarefa.usuarioPessoa}"
+					converter="usuarioPessoaConverter">
+					<f:selectItems value="#{tarefaBean.listUsuarioPessoa}"
+						var="usuarios" itemValue="#{usuarios}"
+						itemLabel="#{usuarios.nome}" />
+				</p:selectOneMenu>
+
+				<h:outputLabel>Prioridade</h:outputLabel>
+				<p:selectOneMenu id="prioridade"
+					value="#{tarefaBean.tarefa.prioridade}">
+					<f:selectItem itemLabel="ALTA" itemValue="ALTA" />
+					<f:selectItem itemLabel="MEDIA" itemValue="MÉDIA" />
+					<f:selectItem itemLabel="BAIXA" itemValue="BAIXA" />
+				</p:selectOneMenu>
+
+				<h:outputLabel>Situação</h:outputLabel>
+				<p:selectOneMenu id="situacao" value="#{tarefaBean.tarefa.situacao}">
+					<f:selectItem itemLabel="EM ANDAMENTO" itemValue="EM ANDAMENTO" />
+					<f:selectItem itemLabel="CONCLUÍDA" itemValue="CONCLUIDA" />
+				</p:selectOneMenu>
+				<h:outputLabel>Deadline</h:outputLabel>
+				<p:inputMask id="date" value="#{tarefaBean.tarefa.deadline}"
+					mask="99/99/9999" requiredMessage="Informe a Deadline!" />
+			</p:panelGrid>
+
+			<br />
+			<br />
+
+			<h:panelGrid columns="4" cellpadding="2" cellspacing="2">
+				<p:commandButton value="Salvar" action="#{tarefaBean.salvar}"
+					ajax="false" />
+				<p:commandButton value="Novo" action="#{tarefaBean.novo}"
+					ajax="false" />
+			</h:panelGrid>
+
+			<br />
+			<br />
+		</h:form>
+	</div>
+	<div align="center">
+		<h:form id="formListagem">
+			<p:dataTable value="#{tarefaBean.list}" var="tarefa" paginator="true"
+				rows="5" paginatorPosition="bottom" cellpadding="10"
+				style="width:60%;">
+
+				 <p:column headerText="Titulo" sortBy="#{tarefa.titulo}" filterBy="#{tarefa.titulo}" width="100">
+					<h:outputText value="#{tarefa.titulo}" />
+				</p:column>
+				 <p:column headerText="Responsável" sortBy="#{tarefa.usuarioPessoa.nome}" filterBy="#{tarefa.usuarioPessoa.nome}" width="200">
+					<h:outputText value="#{tarefa.usuarioPessoa.nome}" />
+				</p:column>
+				<p:column headerText="Deadline" width="30">
+					<h:outputText value="#{tarefa.deadline}" />
+				</p:column>
+				<p:column headerText="Prioridade" width="30">
+					<h:outputText value="#{tarefa.prioridade}" />
+				</p:column>
+				<p:column headerText="Editar" width="15">
+					<h:commandLink immediate="true" id="btnEditar">
+						<h:graphicImage url="resources/img/edit.png" width="25"
+							height="25" />
+						<f:setPropertyActionListener value="#{tarefa}"
+							target="#{tarefaBean.tarefa}" />
+						<f:ajax execute="btnEditar" render=":formCadastro" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column headerText="Excluir" width="15"
+					style="{textAlign: 'right' }">
+					<h:commandLink action="#{tarefaBean.delete}" immediate="true"
+						id="btnRemover">
+						<h:graphicImage url="resources/img/excluir.png" width="25"
+							height="25" />
+						<f:setPropertyActionListener value="#{tarefa}"
+							target="#{tarefaBean.tarefa}" />
+						<f:ajax execute="btnRemover" render="@form :formCadastro:msg" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column headerText="Concluir" width="15">
+					<h:commandLink action="#{tarefaBean.concluir}" immediate="true"
+						id="btnConcluir">
+						<h:graphicImage url="resources/img/check.png" width="25"
+							height="25" />
+						<f:setPropertyActionListener value="#{tarefa}"
+							target="#{tarefaBean.tarefa}" />
+						<f:ajax execute="btnConcluir" render="@form :formCadastro:msg" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</h:body>
+</html>
