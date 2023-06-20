@@ -2,60 +2,90 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
 </h:head>
 
-<h:body>
+<h:body>.
 	<h:form>
-		<h:messages showDetail="true" showSummary="false"/>
-		<h:panelGrid columns="2">
+		<p:menubar>
+			<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
+
+				<p:menuitem value="Pessoa" icon="pi pi-fw pi-users" action="index.jsf"/>
+				<p:menuitem value="Video" icon="pi pi-fw pi-video" />
+
+			</p:submenu>
+		</p:menubar>
+
+	</h:form>
+	<h:form id="formulario">
+		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		<p:panelGrid columns="2">
 			<h:outputLabel>Id</h:outputLabel>
-			<h:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
+			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
 			<h:outputLabel>Nome</h:outputLabel>
-			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe o nome"/>
+			<p:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+				requiredMessage="Informe o nome" />
 			<h:outputLabel>Sobrenome</h:outputLabel>
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<p:inputText value="#{pessoaBean.pessoa.sobrenome}" />
 			<h:outputLabel>Email</h:outputLabel>
-			<h:inputText value="#{pessoaBean.pessoa.email}" />
+			<p:inputText value="#{pessoaBean.pessoa.email}" />
 			<h:outputLabel>Login</h:outputLabel>
-			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			<p:inputText value="#{pessoaBean.pessoa.login}" />
 			<h:outputLabel>Senha</h:outputLabel>
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
-		</h:panelGrid>
-		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
-		<h:commandButton value="Novo" action="#{pessoaBean.novo}"/>
-		
-		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15" border="1">
+			<p:password value="#{pessoaBean.pessoa.senha}" />
+		</p:panelGrid>
+		<br />
+		<br />
+		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}" update="@form :formTable">
+			<f:ajax render="@form" resetValues="false"/>
+		</p:commandButton>
+		<p:commandButton value="Novo" action="#{pessoaBean.novo}">
+			<f:ajax render="@form" resetValues="true"/>
+		</p:commandButton>
+		<br />
+		<br />
+	</h:form>
+	<h:form id="formTable">
+		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15" id="lista"
+			border="1">
 			<f:facet name="header">Lista de usuários</f:facet>
 			<h:column>
 				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{p.id}"/>
+				<h:outputText value="#{p.id}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{p.nome}"/>
+				<h:outputText value="#{p.nome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Sobrenome</f:facet>
-				<h:outputText value="#{p.sobrenome}"/>
+				<h:outputText value="#{p.sobrenome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{p.email}"/>
+				<h:outputText value="#{p.email}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar">
-					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				<h:commandLink immediate="true" id="btnEditar">
+					<h:graphicImage url="resources/img/edit.png" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{p}"
+						target="#{pessoaBean.pessoa}" />
+					<f:ajax execute="btnEditar" render=":formulario"/>
 				</h:commandLink>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir" action="#{pessoaBean.remover}">
-					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+				<h:commandLink action="#{pessoaBean.remover}" id="btnRemover"
+					immediate="true">
+					<h:graphicImage url="resources/img/delete.png" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{p}"
+						target="#{pessoaBean.pessoa}" />
+					<f:ajax execute="btnRemover" render="@form :formulario:msg"/>
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>

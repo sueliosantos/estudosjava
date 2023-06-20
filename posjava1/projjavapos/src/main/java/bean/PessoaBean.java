@@ -3,20 +3,26 @@ package bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import dao.GenericDao;
+import dao.PessoaDao;
 import model.Pessoa;
 
 @ManagedBean(name = "pessoaBean")
 @ViewScoped
 public class PessoaBean {
 	private Pessoa pessoa = new Pessoa();
-	private GenericDao<Pessoa> dao = new GenericDao<>();
 	private List<Pessoa> list = new ArrayList<Pessoa>();
+	private PessoaDao<Pessoa> pessoaDao = new PessoaDao<Pessoa>();
+	@PostConstruct
+	public void init() {
+		list = pessoaDao.findAll(Pessoa.class);
+	}
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -25,14 +31,16 @@ public class PessoaBean {
 		this.pessoa = pessoa;
 	}
 	public GenericDao<Pessoa> getDao() {
-		return dao;
+		return pessoaDao;
 	}
 	public void setDao(GenericDao<Pessoa> dao) {
-		this.dao = dao;
+		this.pessoaDao = pessoaDao;
 	}
 	
 	public String salvar() {
-		dao.salvar(pessoa);
+		pessoaDao.salvar(pessoa);
+		list.add(pessoa);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Salvo com sucesso!"));
 		return "";
 	}
 	
@@ -41,17 +49,27 @@ public class PessoaBean {
 		return "";		
 	}
 	public List<Pessoa> getList() {
-		list = dao.findAll(Pessoa.class);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Salvo com sucesso!"));
+	
 		return list;
 	}
 	
 	
 	public String remover() {
-		dao.delete(pessoa);
-		pessoa = new Pessoa();
+		try {
+			pessoaDao.removerPessoa(pessoa);
+			list.remove(pessoa);
+			pessoa = new Pessoa();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Excluido com sucesso!"));
+		} catch (Exception e) {
+			if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Existem telefones cadastrados para a pessoa!"));
+			}else {				
+				e.printStackTrace();
+			}
+		}
 		return "";
 	}
+	
 	
 
 }

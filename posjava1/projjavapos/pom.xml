@@ -46,6 +46,12 @@
 			<version>5.2.6.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>12.0.0</version>
+		</dependency>
+
 		<!--
 		https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>

@@ -21,15 +21,23 @@
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.ManyToAny"/>
     <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
-    <fullyQualifiedTypeName name="model.TelefonePessoa"/>
     <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
     <fullyQualifiedTypeName name="javax.persistence.FetchType"/>
     <fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
-    <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
-    <fullyQualifiedTypeName name="dao.GenericDao"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="model.Pessoa"/>
     <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
     <fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
+    <fullyQualifiedTypeName name="javax.faces.application.Application"/>
+    <fullyQualifiedTypeName name="javax.faces.application.ViewHandler"/>
+    <fullyQualifiedTypeName name="javax.faces.component.UIViewRoot"/>
+    <fullyQualifiedTypeName name="javax.faces.view.ViewScoped"/>
+    <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
+    <fullyQualifiedTypeName name="projjavapos.TelefonePessoa"/>
+    <fullyQualifiedTypeName name="model.TelefonePessoa"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
+    <fullyQualifiedTypeName name="dao.GenericDao"/>
+    <fullyQualifiedTypeName name="dao.PessoaDao"/>
+    <fullyQualifiedTypeName name="model.Pessoa"/>
 </qualifiedTypeNameHistroy>

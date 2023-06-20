@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+</h:head>
+
+<h:body>.
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
+
+				<p:menuitem value="Pessoa" icon="pi pi-fw pi-users" action="index.jsf"/>
+				<p:menuitem value="Video" icon="pi pi-fw pi-video" />
+
+			</p:submenu>
+		</p:menubar>
+
+	</h:form>
+	<h:form id="formulario">
+		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		<p:panelGrid columns="2">
+			<h:outputLabel>Id</h:outputLabel>
+			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
+			<h:outputLabel>Nome</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+				requiredMessage="Informe o nome" />
+			<h:outputLabel>Sobrenome</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:outputLabel>Email</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.email}" />
+			<h:outputLabel>Login</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.login}" />
+			<h:outputLabel>Senha</h:outputLabel>
+			<p:password value="#{pessoaBean.pessoa.senha}" />
+		</p:panelGrid>
+		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}" update="formTable">
+			<f:ajax render="@form" resetValues="false"/>
+		</p:commandButton>
+		<p:commandButton value="Novo" action="#{pessoaBean.novo}">
+			<f:ajax render="@form" resetValues="true"/>
+		</p:commandButton>
+	</h:form>
+	<h:form id="formTable">
+		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15" id="lista"
+			border="1">
+			<f:facet name="header">Lista de usuários</f:facet>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{p.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{p.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{p.sobrenome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{p.email}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink immediate="true" id="btnEditar">
+					<h:graphicImage url="resources/img/edit.png" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{p}"
+						target="#{pessoaBean.pessoa}" />
+					<f:ajax execute="btnEditar" render="@form"/>
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{pessoaBean.remover}" id="btnRemover"
+					immediate="true">
+					<h:graphicImage url="resources/img/delete.png" width="25" height="25"/>
+					<f:setPropertyActionListener value="#{p}"
+						target="#{pessoaBean.pessoa}" />
+					<f:ajax execute="btnRemover" render="@form"/>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

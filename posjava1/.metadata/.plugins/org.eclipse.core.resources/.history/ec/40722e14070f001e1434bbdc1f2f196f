@@ -1,0 +1,14 @@
+package dao;
+
+import model.Pessoa;
+
+public class PessoaDao extends GenericDao<Pessoa>{
+	public void removerPessoa(Pessoa p) throws Exception {
+		String sqlDeleteTelefone = "delete from telefonepessoa where pessoa = " + p.getId();
+		getEntityManager().createNativeQuery(sqlDeleteTelefone).executeUpdate();
+		getEntityManager().getTransaction().commit();
+		
+		super.delete(p);
+	}
+
+}

@@ -39,7 +39,7 @@ public class GenericDao<E> {
 		return entidadeSalva;
 	}
 
-	public void delete(E entidade) {
+	public void delete(E entidade) throws Exception{
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 
 		EntityTransaction transaction = entityManager.getTransaction();

@@ -81,7 +81,12 @@ public class TestePessoa {
 
 		Pessoa p = dao.pesquisar(16L, Pessoa.class);
 		
-		dao.delete(p);
+		try {
+			dao.delete(p);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	

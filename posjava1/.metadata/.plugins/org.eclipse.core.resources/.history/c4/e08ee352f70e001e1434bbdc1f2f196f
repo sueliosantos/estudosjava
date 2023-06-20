@@ -1,0 +1,20 @@
+package projjavapos;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.Test;
+
+import dao.GenericDao;
+import model.Pessoa;
+
+public class TesteTelefonePessoa {
+	@Test
+	public void testeSalvarPessoa() {
+		GenericDao<Pessoa> dao = new GenericDao<>();
+		Pessoa p = dao.pesquisar(10L, Pessoa.class);
+		TelefonePessoa t = new TelefonePessoa();
+		t
+		
+	}
+}
