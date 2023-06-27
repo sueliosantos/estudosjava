@@ -14,7 +14,8 @@
 		<p:menubar>
 			<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
 
-				<p:menuitem value="Pessoa" icon="pi pi-fw pi-users" action="index.jsf"/>
+				<p:menuitem value="Pessoa" icon="pi pi-fw pi-users"
+					action="index.jsf" />
 				<p:menuitem value="Video" icon="pi pi-fw pi-video" />
 
 			</p:submenu>
@@ -22,7 +23,7 @@
 
 	</h:form>
 	<h:form id="formulario">
-		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		<h:messages showDetail="true" showSummary="false" id="msg" />
 		<p:panelGrid columns="2">
 			<h:outputLabel>Id</h:outputLabel>
 			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
@@ -40,18 +41,19 @@
 		</p:panelGrid>
 		<br />
 		<br />
-		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}" update="@form :formTable">
-			<f:ajax render="@form" resetValues="false"/>
+		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}"
+			update="@form :formTable">
+			<f:ajax render="@form" resetValues="false" />
 		</p:commandButton>
 		<p:commandButton value="Novo" action="#{pessoaBean.novo}">
-			<f:ajax render="@form" resetValues="true"/>
+			<f:ajax render="@form" resetValues="true" />
 		</p:commandButton>
 		<br />
 		<br />
 	</h:form>
 	<h:form id="formTable">
-		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15" id="lista"
-			border="1">
+		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15"
+			id="lista" border="1">
 			<f:facet name="header">Lista de usuários</f:facet>
 			<h:column>
 				<f:facet name="header">Id</f:facet>
@@ -72,20 +74,32 @@
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
 				<h:commandLink immediate="true" id="btnEditar">
-					<h:graphicImage url="resources/img/edit.png" width="25" height="25"/>
+					<h:graphicImage url="resources/img/edit.png" width="25" height="25" />
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
-					<f:ajax execute="btnEditar" render=":formulario"/>
+					<f:ajax execute="btnEditar" render=":formulario" />
 				</h:commandLink>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink action="#{pessoaBean.remover}" id="btnRemover"
 					immediate="true">
-					<h:graphicImage url="resources/img/delete.png" width="25" height="25"/>
+					<h:graphicImage url="resources/img/delete.png" width="25"
+						height="25" />
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
-					<f:ajax execute="btnRemover" render="@form :formulario:msg"/>
+					<f:ajax execute="btnRemover" render="@form :formulario:msg" />
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Telefone</f:facet>
+				<h:commandLink action="#{pessoaBean.remover}" id="btnFone"
+					immediate="true">
+					<h:graphicImage url="resources/img/fone.png" width="25"
+						height="25" />
+					<f:setPropertyActionListener value="#{p}"
+						target="#{pessoaBean.pessoa}" />
+					<f:ajax execute="btnRemover" render="@form :formulario:msg" />
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>
