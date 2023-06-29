@@ -93,13 +93,10 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Telefone</f:facet>
-				<h:commandLink action="#{pessoaBean.remover}" id="btnFone"
-					immediate="true">
+				<h:commandLink action="telefone.jsf" id="btnFone">
 					<h:graphicImage url="resources/img/fone.png" width="25"
 						height="25" />
-					<f:setPropertyActionListener value="#{p}"
-						target="#{pessoaBean.pessoa}" />
-					<f:ajax execute="btnRemover" render="@form :formulario:msg" />
+					<f:param name="idPessoa" value="#{p.id}"/>
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>

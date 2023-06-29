@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
+
+				<p:menuitem value="Pessoa" icon="pi pi-fw pi-users"
+					action="index.jsf" />
+				<p:menuitem value="Video" icon="pi pi-fw pi-video" />
+
+			</p:submenu>
+		</p:menubar>
+
+	</h:form>
+	<h:form id="formulario">
+		<h:messages showDetail="true" showSummary="false" id="msg" />
+		<h1>Telefones</h1>
+		<h:outputText value="#{telefoneBean.pessoa.nome}"/>
+	</h:form>
+</h:body>
+</html>
