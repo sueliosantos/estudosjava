@@ -20,7 +20,10 @@ public class GenericDao<E> {
 	}
 
 	public E pesquisar(Long id, Class<E> entidade) {
-		E e = (E) entityManager.find(entidade, id);
+		entityManager.clear();
+		@SuppressWarnings("unchecked")
+		E singleResult = (E) entityManager.createQuery("from " + entidade.getSimpleName() + " where id = " + id ).getSingleResult();
+		E e = singleResult;
 		return e;
 	}
 	
