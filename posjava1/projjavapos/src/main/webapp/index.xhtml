@@ -34,6 +34,32 @@
 			<p:inputText value="#{pessoaBean.pessoa.sobrenome}" />
 			<h:outputLabel>Email</h:outputLabel>
 			<p:inputText value="#{pessoaBean.pessoa.email}" />
+			<h:outputLabel>CEP</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.cep}">
+				<f:ajax event="blur" execute="@this"  render="logradouro bairro complemento localidade uf unidade ibge"
+					listener="#{pessoaBean.pesquisaCep}"/>
+			</p:inputText>
+			<h:outputLabel>Logradouro</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" />
+			
+			<h:outputLabel>Complemento</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento" />
+			
+			<h:outputLabel>Bairro</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
+			
+			<h:outputLabel>Localidade</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" />
+			
+			<h:outputLabel>UF</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.uf}" id="uf" />
+			
+			<h:outputLabel>Unidade</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.unidade}" id="unidade" />
+			
+			<h:outputLabel>IBGE</h:outputLabel>
+			<p:inputText value="#{pessoaBean.pessoa.ibge}" id="ibge" />
+			
 			<h:outputLabel>Login</h:outputLabel>
 			<p:inputText value="#{pessoaBean.pessoa.login}" />
 			<h:outputLabel>Senha</h:outputLabel>
