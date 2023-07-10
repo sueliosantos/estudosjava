@@ -15,6 +15,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.model.charts.bar.BarChartModel;
+
 import com.google.gson.Gson;
 
 import dao.GenericDao;
@@ -27,9 +29,14 @@ public class PessoaBean {
 	private Pessoa pessoa = new Pessoa();
 	private List<Pessoa> list = new ArrayList<Pessoa>();
 	private PessoaDao<Pessoa> pessoaDao = new PessoaDao<Pessoa>();
+	
+	
+	
 	@PostConstruct
 	public void init() {
 		list = pessoaDao.findAll(Pessoa.class);
+		
+		
 	}
 	
 	public Pessoa getPessoa() {
@@ -59,7 +66,7 @@ public class PessoaBean {
 				jsonCep.append(cep);
 			}
 			
-			Pessoa auxPessoa = new Gson().fromJson(jsonCep.toString(), Pessoa.class);
+			Pessoa auxPessoa = (Pessoa) new Gson().fromJson(jsonCep.toString(), Pessoa.class);
 			pessoa.setBairro(auxPessoa.getBairro());
 			pessoa.setComplemento(auxPessoa.getComplemento());
 			pessoa.setLogradouro(auxPessoa.getLogradouro());			
@@ -69,8 +76,6 @@ public class PessoaBean {
 			pessoa.setCep(auxPessoa.getCep());	
 			pessoa.setLocalidade(auxPessoa.getLocalidade());	
 			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +84,7 @@ public class PessoaBean {
 	public String salvar() {
 		pessoaDao.salvar(pessoa);
 		list.add(pessoa);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Salvo com sucesso!"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Salvo com sucesso!"));
 		return "";
 	}
 	
@@ -108,7 +113,5 @@ public class PessoaBean {
 		}
 		return "";
 	}
-	
-	
 
 }

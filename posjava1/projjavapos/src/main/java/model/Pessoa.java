@@ -1,8 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,9 +21,7 @@ public class Pessoa {
 	private String nome;
 	
 	private String sobrenome;
-	
-	private String email;
-	
+		
 	private String login;
 	
 	private String senha;
@@ -42,9 +42,15 @@ public class Pessoa {
 
 	private String ibge;
 	
+	private Double salario;
+	
 	private String gia;
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER)
-	private List<TelefonePessoa> telefones;
+	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<TelefonePessoa> telefones = new ArrayList<TelefonePessoa>();
+	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<EmailPessoa> emails = new ArrayList<EmailPessoa>();
 
 
 	public Long getId() {
@@ -71,14 +77,6 @@ public class Pessoa {
 		this.sobrenome = sobrenome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	public String getSenha() {
 		return senha;
 	}
@@ -97,7 +95,7 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Pessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", login="
+		return "Pessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", login="
 				+ login + ", senha=" + senha + "]";
 	}
 
@@ -196,6 +194,22 @@ public class Pessoa {
 
 	public void setGia(String gia) {
 		this.gia = gia;
+	}
+
+	public Double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
+
+	public List<EmailPessoa> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(List<EmailPessoa> emails) {
+		this.emails = emails;
 	}
 
 	

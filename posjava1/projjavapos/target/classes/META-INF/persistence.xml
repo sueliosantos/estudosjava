@@ -6,6 +6,7 @@
 	<persistence-unit name="projjavapos">
 		<class>model.Pessoa</class>
 		<class>model.TelefonePessoa</class>
+		<class>model.EmailPessoa</class>
 		<properties>
 			<property name="hibernate.connection.driver_class"
 				value="org.postgresql.Driver" />

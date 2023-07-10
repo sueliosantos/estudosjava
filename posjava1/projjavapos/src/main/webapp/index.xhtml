@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
 	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
 </h:head>
 
-<h:body>.
+<h:body>
 	<h:form>
 		<p:menubar>
 			<p:submenu label="Cadastros" icon="pi pi-fw pi-file">
@@ -23,36 +24,38 @@
 
 	</h:form>
 	<h:form id="formulario">
-		<h:messages showDetail="true" showSummary="false" id="msg" />
-		<p:panelGrid columns="2">
+		<p:messages autoUpdate="true" showDetail="true" />
+		<p:panelGrid columns="4" styleClass="ui-noborder">
 			<h:outputLabel>Id</h:outputLabel>
 			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
+			<h:outputLabel/>
+			<h:outputLabel/>
 			<h:outputLabel>Nome</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+			<p:inputText value="#{pessoaBean.pessoa.nome}" required="true" pt:placeholder="Informe o nome"
 				requiredMessage="Informe o nome" />
 			<h:outputLabel>Sobrenome</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.sobrenome}" />
-			<h:outputLabel>Email</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.email}" />
+			<p:inputText value="#{pessoaBean.pessoa.sobrenome}" pt:placeholder="Informe o sobrenome"/> 
+			<h:outputLabel>Salário</h:outputLabel>
+			<p:inputNumber value="#{pessoaBean.pessoa.salario}" pt:placeholder="Informe o salário"/>
 			<h:outputLabel>CEP</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.cep}">
+			<p:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder="Informe o cep">
 				<f:ajax event="blur" execute="@this"  render="logradouro bairro complemento localidade uf unidade ibge"
 					listener="#{pessoaBean.pesquisaCep}"/>
 			</p:inputText>
 			<h:outputLabel>Logradouro</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" />
+			<p:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" pt:placeholder="Informe o logradouro" />
 			
 			<h:outputLabel>Complemento</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento" />
+			<p:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento" pt:placeholder="Informe o complemento"/>
 			
 			<h:outputLabel>Bairro</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
+			<p:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" pt:placeholder="Informe o bairro"/>
 			
 			<h:outputLabel>Localidade</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" />
+			<p:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" pt:placeholder="Informe a localidade"/>
 			
 			<h:outputLabel>UF</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.uf}" id="uf" />
+			<p:inputText value="#{pessoaBean.pessoa.uf}" id="uf" pt:placeholder="Informe a uf"/>
 			
 			<h:outputLabel>Unidade</h:outputLabel>
 			<p:inputText value="#{pessoaBean.pessoa.unidade}" id="unidade" />
@@ -61,9 +64,9 @@
 			<p:inputText value="#{pessoaBean.pessoa.ibge}" id="ibge" />
 			
 			<h:outputLabel>Login</h:outputLabel>
-			<p:inputText value="#{pessoaBean.pessoa.login}" />
+			<p:inputText value="#{pessoaBean.pessoa.login}" pt:placeholder="Informe o login"/>
 			<h:outputLabel>Senha</h:outputLabel>
-			<p:password value="#{pessoaBean.pessoa.senha}" />
+			<p:password value="#{pessoaBean.pessoa.senha}" pt:placeholder="Informe a senha"/>
 		</p:panelGrid>
 		<br />
 		<br />
@@ -78,26 +81,19 @@
 		<br />
 	</h:form>
 	<h:form id="formTable">
-		<h:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15"
+		<p:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15"
 			id="lista" border="1">
 			<f:facet name="header">Lista de usuários</f:facet>
-			<h:column>
-				<f:facet name="header">Id</f:facet>
+			<p:column headerText="Id">
 				<h:outputText value="#{p.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
+			</p:column>
+			<p:column headerText="Nome">
 				<h:outputText value="#{p.nome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Sobrenome</f:facet>
+			</p:column>
+			<p:column headerText="Sobrenome">
 				<h:outputText value="#{p.sobrenome}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{p.email}" />
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Editar</f:facet>
 				<h:commandLink immediate="true" id="btnEditar">
 					<h:graphicImage url="resources/img/edit.png" width="25" height="25" />
@@ -105,8 +101,8 @@
 						target="#{pessoaBean.pessoa}" />
 					<f:ajax execute="btnEditar" render=":formulario" />
 				</h:commandLink>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink action="#{pessoaBean.remover}" id="btnRemover"
 					immediate="true">
@@ -114,18 +110,17 @@
 						height="25" />
 					<f:setPropertyActionListener value="#{p}"
 						target="#{pessoaBean.pessoa}" />
-					<f:ajax execute="btnRemover" render="@form :formulario:msg" />
 				</h:commandLink>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Telefone</f:facet>
 				<h:commandLink action="telefone.jsf" id="btnFone">
 					<h:graphicImage url="resources/img/fone.png" width="25"
 						height="25" />
 					<f:param name="idPessoa" value="#{p.id}"/>
 				</h:commandLink>
-			</h:column>
-		</h:dataTable>
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </h:body>
 </html>

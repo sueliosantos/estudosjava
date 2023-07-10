@@ -16,7 +16,6 @@ public class TestePessoa {
 		Pessoa p = new Pessoa();
 		p.setNome("Suelio");
 		p.setLogin("suelio");
-		p.setEmail("sueliosantos@gmail.com");
 		p.setSobrenome("santos");
 
 		dao.salvar(p);
@@ -29,7 +28,6 @@ public class TestePessoa {
 		Pessoa p = new Pessoa();
 		p.setNome("Claudiana");
 		p.setLogin("clau");
-		p.setEmail("claus@gmail.com");
 		p.setSobrenome("clau");
 
 		dao.salvar(p);
@@ -66,9 +64,7 @@ public class TestePessoa {
 		
 		p.setNome("Giovanna");
 		p.setLogin("gigi");
-		p.setSobrenome("massa");
-		p.setEmail("gigimassa@gmail.com");
-		
+		p.setSobrenome("massa");		
 		p = dao.updateMarge(p);
 		
 		System.out.println(p);
