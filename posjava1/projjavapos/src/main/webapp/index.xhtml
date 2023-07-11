@@ -24,7 +24,7 @@
 
 	</h:form>
 	<h:form id="formulario">
-		<p:messages autoUpdate="true" showDetail="true" />
+		<p:growl id="growl" showDetail="true" life="60000" autoUpdate="true"/>
 		<p:panelGrid columns="4" styleClass="ui-noborder">
 			<h:outputLabel>Id</h:outputLabel>
 			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
@@ -71,12 +71,9 @@
 		<br />
 		<br />
 		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}"
-			update="@form :formTable">
-			<f:ajax render="@form" resetValues="false" />
-		</p:commandButton>
-		<p:commandButton value="Novo" action="#{pessoaBean.novo}">
-			<f:ajax render="@form" resetValues="true" />
-		</p:commandButton>
+			ajax="false"></p:commandButton>
+		<p:commandButton value="Novo" action="#{pessoaBean.novo}"
+			ajax="false"></p:commandButton>
 		<br />
 		<br />
 	</h:form>
@@ -120,7 +117,26 @@
 					<f:param name="idPessoa" value="#{p.id}"/>
 				</h:commandLink>
 			</p:column>
+			
+			<p:column>
+				<f:facet name="header">Email</f:facet>
+				<p:commandLink update=":formTable:dlgEmail" oncomplete="PF('dlgEmail').show()">
+					<h:graphicImage url="resources/img/email.png" width="25"
+						height="25" />
+					<f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}" />
+				</p:commandLink>
+			</p:column>
 		</p:dataTable>
+		
+		<p:dialog header="E-mails" id="dlgEmail" position="center" 
+			modal="true" width="490px" widgetVar="dlgEmail" resizable="false">
+			<p:panelGrid columns="3"> 
+				<h:outputText value="E-mail"/>
+				<p:inputText value="#{pessoaBean.emailPessoa.email}" id="inemail"/>
+				<p:commandButton value="Adicionar" actionListener="#{pessoaBean.addEmail}" update="inemail"></p:commandButton>
+			</p:panelGrid> 
+		
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

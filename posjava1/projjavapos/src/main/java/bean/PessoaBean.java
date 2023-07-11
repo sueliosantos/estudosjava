@@ -15,12 +15,15 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.charts.bar.BarChartModel;
 
 import com.google.gson.Gson;
 
+import dao.EmailDao;
 import dao.GenericDao;
 import dao.PessoaDao;
+import model.EmailPessoa;
 import model.Pessoa;
 
 @ManagedBean(name = "pessoaBean")
@@ -29,8 +32,8 @@ public class PessoaBean {
 	private Pessoa pessoa = new Pessoa();
 	private List<Pessoa> list = new ArrayList<Pessoa>();
 	private PessoaDao<Pessoa> pessoaDao = new PessoaDao<Pessoa>();
-	
-	
+	private EmailPessoa emailPessoa = new EmailPessoa();
+	private EmailDao<EmailPessoa> emailDao = new EmailDao<EmailPessoa>();
 	
 	@PostConstruct
 	public void init() {
@@ -112,6 +115,24 @@ public class PessoaBean {
 			}
 		}
 		return "";
+	}
+	
+	public void addEmail() {
+		emailPessoa.setPessoa(pessoa);
+		emailPessoa = emailDao.updateMarge(emailPessoa);
+		pessoa.getEmails().add(emailPessoa);
+		emailPessoa = new EmailPessoa();
+		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem", "Cadastrado com sucesso.");
+		PrimeFaces.current().dialog().showMessageDynamic(message);
+		
+	}
+
+	public EmailPessoa getEmailPessoa() {
+		return emailPessoa;
+	}
+
+	public void setEmailPessoa(EmailPessoa emailPessoa) {
+		this.emailPessoa = emailPessoa;
 	}
 
 }

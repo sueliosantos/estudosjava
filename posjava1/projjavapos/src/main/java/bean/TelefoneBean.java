@@ -44,7 +44,7 @@ public class TelefoneBean {
 		telefoneDao.delete(telefone);
 		pessoa = pessoaDao.pesquisar(pessoa.getId(), Pessoa.class);
 		telefone = new TelefonePessoa();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Telefone removido!"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação", "Salvo com sucesso!"));
 
 
 		return "";
