@@ -122,9 +122,20 @@ public class PessoaBean {
 		emailPessoa = emailDao.updateMarge(emailPessoa);
 		pessoa.getEmails().add(emailPessoa);
 		emailPessoa = new EmailPessoa();
-		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem", "Cadastrado com sucesso.");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem", "Cadastrado com sucesso.");
 		PrimeFaces.current().dialog().showMessageDynamic(message);
 		
+	}
+	
+	public void removerEmail() throws Exception {
+		String idEmail = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idemail");
+		EmailPessoa email = new EmailPessoa();
+		email.setId(Long.parseLong(idEmail));
+		emailDao.delete(email);
+		
+		pessoa.getEmails().remove(email);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem", "Removido com sucesso.");
+		PrimeFaces.current().dialog().showMessageDynamic(message);
 	}
 
 	public EmailPessoa getEmailPessoa() {

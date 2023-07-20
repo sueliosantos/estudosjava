@@ -133,9 +133,21 @@
 			<p:panelGrid columns="3"> 
 				<h:outputText value="E-mail"/>
 				<p:inputText value="#{pessoaBean.emailPessoa.email}" id="inemail"/>
-				<p:commandButton value="Adicionar" actionListener="#{pessoaBean.addEmail}" update="inemail"></p:commandButton>
+				<p:commandButton value="Adicionar" actionListener="#{pessoaBean.addEmail}" 
+					update="inemail, tableEmail"></p:commandButton>
 			</p:panelGrid> 
-		
+			<p:dataTable value="#{pessoaBean.pessoa.emails}" var="e" id="tableEmail">
+				<p:column headerText="Email" width="80%">
+					<h:outputLabel value="#{e.email}"/>
+				</p:column>
+				<p:column headerText="Remover" width="20%">
+					<h:commandLink id="btnRemoverEmail" actionListener="#{pessoaBean.removerEmail}">
+						<f:param name="idemail" value="#{e.id}"/>
+						<f:ajax execute="btnRemoverEmail" render="tableEmail"/>
+						<h:graphicImage url="resources/img/delete.png" width="25" height="25" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
 		</p:dialog>
 	</h:form>
 </h:body>
