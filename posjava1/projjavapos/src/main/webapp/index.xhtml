@@ -25,11 +25,9 @@
 	</h:form>
 	<h:form id="formulario">
 		<p:growl id="growl" showDetail="true" life="60000" autoUpdate="true"/>
-		<p:panelGrid columns="4" styleClass="ui-noborder">
+		<p:panelGrid columns="6" styleClass="ui-noborder">
 			<h:outputLabel>Id</h:outputLabel>
 			<p:inputText readonly="true" value="#{pessoaBean.pessoa.id}" />
-			<h:outputLabel/>
-			<h:outputLabel/>
 			<h:outputLabel>Nome</h:outputLabel>
 			<p:inputText value="#{pessoaBean.pessoa.nome}" required="true" pt:placeholder="Informe o nome"
 				requiredMessage="Informe o nome" />
@@ -67,6 +65,12 @@
 			<p:inputText value="#{pessoaBean.pessoa.login}" pt:placeholder="Informe o login"/>
 			<h:outputLabel>Senha</h:outputLabel>
 			<p:password value="#{pessoaBean.pessoa.senha}" pt:placeholder="Informe a senha"/>
+			<h:outputLabel/>
+			<h:outputLabel/>		
+			<h:outputLabel>Selecionar foto</h:outputLabel>
+			<p:fileUpload mode="advanced" label="Adicionar" auto="true" update="pnfoto" listener="#{pessoaBean.uploadImg}"/>
+			<h:outputLabel>Foto</h:outputLabel>
+			<h:graphicImage id="pnfoto" value="#{pessoaBean.pessoa.foto}" width="125" height="130"/>
 		</p:panelGrid>
 		<br />
 		<br />
@@ -77,21 +81,48 @@
 		<br />
 		<br />
 	</h:form>
+	<h:form>
+		<p:panel header="Consultar">
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Nome:"/>
+				<p:inputText value="#{pessoaBean.nomeFiltroPesquisa}"/>
+				<p:commandButton value="Buscar" actionListener="#{pessoaBean.pesquisar}" update="formTable"/>
+				
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
 	<h:form id="formTable">
-		<p:dataTable value="#{pessoaBean.list}" var="p" cellpadding="15"
-			id="lista" border="1">
+		<p:dataTable 
+			value="#{pessoaBean.list}" var="p" cellpadding="10"  
+			rows="5"
+			lazy="true"
+			paginator="true"  
+			paginatorPosition="bottom"
+			id="lista" border="2"
+			>
 			<f:facet name="header">Lista de usuários</f:facet>
-			<p:column headerText="Id">
+			<p:column headerText="Id"  width="20">
 				<h:outputText value="#{p.id}" />
 			</p:column>
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" width="600">
 				<h:outputText value="#{p.nome}" />
 			</p:column>
-			<p:column headerText="Sobrenome">
-				<h:outputText value="#{p.sobrenome}" />
+			<p:column headerText="Login" width="150">
+				<h:outputText value="#{p.login}" />
 			</p:column>
-			<p:column>
-				<f:facet name="header">Editar</f:facet>
+			<p:column headerText="Salário" width="200">
+				<h:outputText value="#{p.salario}" />
+			</p:column>
+			<p:column headerText="Cidade" width="200">
+				<h:outputText value="#{p.localidade}" />
+			</p:column>
+			<p:column headerText="Baixar" width="40">
+				<h:commandLink immediate="true" id="btnBaixar" actionListener="#{pessoaBean.download}">
+					<h:graphicImage url="resources/img/transferir.png" width="25" height="25" />
+					<f:param name="fileId" value="#{p.id}"/>
+				</h:commandLink>
+			</p:column>
+			<p:column headerText="Editar" width="40">
 				<h:commandLink immediate="true" id="btnEditar">
 					<h:graphicImage url="resources/img/edit.png" width="25" height="25" />
 					<f:setPropertyActionListener value="#{p}"
@@ -99,8 +130,7 @@
 					<f:ajax execute="btnEditar" render=":formulario" />
 				</h:commandLink>
 			</p:column>
-			<p:column>
-				<f:facet name="header">Excluir</f:facet>
+			<p:column headerText="Excluir" width="40">
 				<h:commandLink action="#{pessoaBean.remover}" id="btnRemover"
 					immediate="true">
 					<h:graphicImage url="resources/img/delete.png" width="25"
@@ -109,8 +139,7 @@
 						target="#{pessoaBean.pessoa}" />
 				</h:commandLink>
 			</p:column>
-			<p:column>
-				<f:facet name="header">Telefone</f:facet>
+			<p:column headerText="Telefone" width="50">
 				<h:commandLink action="telefone.jsf" id="btnFone">
 					<h:graphicImage url="resources/img/fone.png" width="25"
 						height="25" />

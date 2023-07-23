@@ -58,7 +58,7 @@ public class GenericDao<E> {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		List<E> lista = entityManager.createQuery("from " + entidade.getName()).getResultList();
+		List<E> lista = entityManager.createQuery("from " + entidade.getName() + " order by id").getResultList();
 		
 		transaction.commit();
 		

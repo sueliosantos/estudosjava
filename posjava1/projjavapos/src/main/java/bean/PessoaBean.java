@@ -1,12 +1,14 @@
 package bean;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,9 +16,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.primefaces.PrimeFaces;
-import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.event.FileUploadEvent;
 
 import com.google.gson.Gson;
 
@@ -34,6 +39,7 @@ public class PessoaBean {
 	private PessoaDao<Pessoa> pessoaDao = new PessoaDao<Pessoa>();
 	private EmailPessoa emailPessoa = new EmailPessoa();
 	private EmailDao<EmailPessoa> emailDao = new EmailDao<EmailPessoa>();
+	private String nomeFiltroPesquisa;
 	
 	@PostConstruct
 	public void init() {
@@ -137,6 +143,10 @@ public class PessoaBean {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem", "Removido com sucesso.");
 		PrimeFaces.current().dialog().showMessageDynamic(message);
 	}
+	
+	public void pesquisar() {
+		list = pessoaDao.pesquisarPorNome(nomeFiltroPesquisa);
+	}
 
 	public EmailPessoa getEmailPessoa() {
 		return emailPessoa;
@@ -146,4 +156,36 @@ public class PessoaBean {
 		this.emailPessoa = emailPessoa;
 	}
 
+	public String getNomeFiltroPesquisa() {
+		return nomeFiltroPesquisa;
+	}
+
+	public void setNomeFiltroPesquisa(String nomeFiltroPesquisa) {
+		this.nomeFiltroPesquisa = nomeFiltroPesquisa;
+	}
+
+	public void uploadImg(FileUploadEvent img) {
+		String imagem = "data:image/png;base64," + DatatypeConverter.printBase64Binary(img.getFile().getContent());
+		pessoa.setFoto(imagem);
+	}
+	
+	public void download() throws IOException {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();	
+		String fileId = params.get("fileId");
+		
+		Pessoa pessoa = getDao().pesquisar(Long.parseLong(fileId), Pessoa.class);
+		
+		if (pessoa.getFoto() != null) {			
+			byte[] img = new Base64().decodeBase64(pessoa.getFoto().split("\\,")[1]);
+			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+			
+			response.addHeader("Content-Disposition", "attachment; filename=download.png");
+			response.setContentType("application/octet-stream");
+			response.setContentLength(img.length);
+			response.getOutputStream().write(img);
+			response.getOutputStream().flush();
+			FacesContext.getCurrentInstance().responseComplete();
+		}
+	}
+	
 }

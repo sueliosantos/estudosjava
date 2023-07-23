@@ -23,16 +23,26 @@
 
 	</h:form>
 	<h:form id="formulario">
-		<p:messages autoUpdate="true" showDetail="true" />
+		<p:growl autoUpdate="true" showDetail="true" />
 		<p:panelGrid columns="2">
 			<h:outputLabel>Usuário: </h:outputLabel>
 			<p:inputText value="#{telefoneBean.pessoa.nome}" readonly="true" />
 
 			<h:outputLabel>Número:</h:outputLabel>
-			<p:inputText value="#{telefoneBean.telefone.numero}" rendered="true" requiredMessage="Informe o número"/>
+			<p:inputMask 
+				value="#{telefoneBean.telefone.numero}" 
+				rendered="true" 
+				requiredMessage="Informe o número"
+				mask="(99)99999-9999"	
+				/>
 
 			<h:outputLabel>Tipo:</h:outputLabel>
-			<p:inputText value="#{telefoneBean.telefone.tipo}" rendered="true" requiredMessage="Informe o tipo"/>
+			<p:selectOneMenu value="#{telefoneBean.telefone.tipo}" rendered="true" 
+				requiredMessage="Informe o tipo" style="width:200px;">
+				<f:selectItem itemValue="CELULAR" itemLabel="CELULAR"/>
+				<f:selectItem itemValue="CASA" itemLabel="CASA"/>
+				<f:selectItem itemValue="TRABALHO" itemLabel="TRABALHO"/>
+			</p:selectOneMenu>
 		</p:panelGrid>
 		<br />
 		<br />
@@ -41,6 +51,7 @@
 		<p:commandButton value="Novo" action="#{telefoneBean.novo}">
 			<f:ajax render="@form" resetValues="true" />
 		</p:commandButton>
+		<p:commandButton value="Voltar" action="index.jsf"/>
 	</h:form>
 	
 	
